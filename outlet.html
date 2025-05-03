@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="id" class="light">
+
+<head>
+  <title>Bomi POS - aplikasi kasir terbaik</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="assets/svg/logo.svg" type="image/png" />
+  <!-- SEO Meta Tags -->
+  <meta name="description"
+    content="Bomi Pos adalah aplikasi dan web kasir untuk usaha retail dan restoran. Kelola penjualan, stok, laporan, dan pembayaran dengan mudah dan cepat.">
+  <meta name="keywords"
+    content="aplikasi kasir, web kasir, kasir restoran, kasir retail, aplikasi POS, sistem kasir online, software kasir, Bomi Pos">
+  <meta name="author" content="Bomi Pos">
+  <meta name="robots" content="index, follow" />
+
+  <!-- Open Graph untuk Sosial Media -->
+  <meta property="og:title" content="Bomi Pos - Aplikasi dan Web Kasir untuk Retail & Restoran" />
+  <meta property="og:description"
+    content="Gunakan Bomi Pos untuk mengelola penjualan, stok, keuangan, dan laporan usaha Anda secara efisien. Cocok untuk UMKM hingga bisnis skala besar." />
+  <meta property="og:image" content="assets/img/logo-bomipos.png" />
+  <meta property="og:url" content="https://bomipos.id" />
+  <meta property="og:type" content="website" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Bomi Pos - Solusi Kasir Modern untuk Bisnis Anda" />
+  <meta name="twitter:description"
+    content="Bomi Pos menyediakan sistem kasir online berbasis aplikasi dan web untuk mendukung operasional toko dan restoran Anda." />
+  <meta name="twitter:image" content="assets/img/logo-bomipos.png" />
+
+  <!-- Tailwind & Fonts -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script> -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <style>
+    #spotlight {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      background-color: rgba(123, 0, 255, 0.3);
+      /* atau gunakan warna gelap */
+      border-radius: 9999px;
+      pointer-events: none;
+      mix-blend-mode: multiply;
+      transform: translate(-50%, -50%);
+      transition: opacity 0.3s ease, left 0.05s linear, top 0.05s linear;
+      opacity: 0;
+      z-index: 5;
+      filter: blur(80px);
+      /* untuk efek cahaya halus */
+    }
+  </style>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+    };
+  </script>
+
+</head>
+
+<body
+  class="min-h-screen bg-[url('assets/svg/background.svg')] bg-cover bg-center scroll-smooth dark:bg-[url('assets/svg/background-dark.svg')] transition-colors duration-600">
+
+  <div class="container mx-auto px-4 ">
+    <header
+      class="fixed top-0 left-0 w-full z-50 bg-white/2 backdrop-blur-sm p-6 dark:bg-black/10 transition-colors duration-300">
+      <div class="container mx-auto flex justify-between items-center px-4">
+        <img src="assets/svg/logo.svg" alt="logo" class="h-10">
+
+        <!-- Navigation (Hidden on small screens) -->
+        <nav class="space-x-10 hidden md:flex ">
+          <a href="index.html"
+            class="text-sm font-semibold text-purple-700 dark:text-white transition-colors duration-300  ">Home</a>
+          <a href="#"
+            class="text-sm font-semibold text-purple-700 dark:text-white transition-colors duration-300">Outlet</a>
+          <a href="product.html" class="text-sm font-semibold text-purple-700 dark:text-white transition-colors duration-300">Bomi
+            Product</a>
+        </nav>
+
+        <!-- Login Button -->
+        <div class="flex items-center space-x-5">
+          <a href="#" id="toggleDark"
+            class="text-lg font-semibold text-purple-700 dark:text-white transition-colors duration-300 ">
+            <i id="darkIcon" class="bi bi-brightness-high"></i>
+          </a>
+
+          <a href="#"
+            class="text-sm font-semibold text-purple-700  hidden  md:block dark:text-white transition-colors duration-300">Sign
+            In</a>
+          <a href="#"
+            class="px-4 py-2 bg-purple-700 text-white rounded-xl hidden md:block 
+          hover:shadow-sm transform transition-transform  hover:scale-115 dark:bg-white dark:text-purple-700 transition-colors duration-300">
+            Get Started <i class="bi bi-arrow-right-short"></i>
+          </a>
+        </div>
+
+        <!-- Hamburger Menu for small screens -->
+        <button class="md:hidden text-purple-700 bg-white/40 rounded-md p-2 dark:text-zinc-300 transition-colors"
+          id="hamburgerBtn">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Mobile Menu (Hidden by default) -->
+      <div class="md:hidden hidden bg-white/70 px-10 py-4 rounded-md mt-4" id="mobileMenu">
+        <a href="index.html"
+          class="block text-sm font-semibold text-purple-700 py-2 dark:text-zinc-800 transition-colors">Home</a>
+        <a href="#"
+          class="block text-sm font-semibold text-purple-700 py-2 dark:text-zinc-800 transition-colors">Outlet</a>
+        <a href="product.html" class="block text-sm font-semibold text-purple-700 py-2 dark:text-zinc-800 transition-colors">Bomi
+          Product</a>
+        <a href="#" class="block text-sm font-semibold text-purple-700 py-2 dark:text-zinc-800 transition-colors">Sign
+          In</a>
+        <a href="#"
+          class="py-2  text-purple-700 mt-[20px] rounded-xl 
+      hover:shadow-sm transform transition-transform  hover:scale-115  dark:text-zinc-800 transition-colors duration-300">
+          Get Started <i class="bi bi-arrow-right-short"></i>
+        </a>
+      </div>
+    </header>
+    <!-- broadcom -->
+    <section
+      class="mt-[110px] rounded-2xl bg-white/50 text-purple-700 dark:text-white dark:bg-zinc-800/70 transitions-colors duration-300 p-5 w-full">
+      Home / Outlet
+    </section>
+    <!-- Search Section (Trigger) -->
+    <section
+      class="mt-[30px] flex space-x-4 items-center justify-between bg-white/30 dark:bg-zinc-800/70 rounded-2xl p-5 cursor-pointer"
+      onclick="toggleSearchModal()">
+      <input type="text"
+        class="p-3 border border-purple-700 rounded-2xl w-full bg-white/50 text-purple-700 dark:text-white dark:bg-zinc-800 transition-colors duration-300 cursor-pointer"
+        placeholder="Search Outlet or Product" readonly />
+    </section>
+
+    <!-- Modal Overlay -->
+    <div id="searchModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden items-center justify-center">
+      <!-- Modal Box -->
+      <div class="bg-white dark:bg-zinc-900 rounded-2xl w-full max-w-2xl p-6 mx-4">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-lg font-semibold text-zinc-800 dark:text-white">Search outlet or Product</h2>
+          <button onclick="toggleSearchModal()" class="text-zinc-500 hover:text-zinc-800 dark:hover:text-white">
+            ✕
+          </button>
+        </div>
+        <input type="search"
+          class="w-full p-3 border border-purple-700 rounded-2xl text-purple-700 bg-white dark:bg-zinc-800 dark:text-white transition-colors duration-300"
+          placeholder="Type to search..." autofocus />
+        <!-- Optional: Results -->
+       <!-- Optional: Results -->
+<div class="mt-6 space-y-3">
+  <!-- Result item -->
+  <div class="flex items-center justify-between p-3 bg-zinc-100 dark:bg-zinc-800 rounded-xl transition hover:bg-purple-100 dark:hover:bg-purple-900 cursor-pointer">
+    <div>
+      <div class="text-zinc-800 dark:text-white font-medium">Nasi Goreng Spesial</div>
+      <div class="text-sm text-zinc-500 dark:text-zinc-400">Outlet: Angkringan Firman</div>
+    </div>
+    <div class="text-purple-700 font-semibold text-sm">Rp 18.000</div>
+  </div>
+
+  <!-- Result item -->
+  <div class="flex items-center justify-between p-3 bg-zinc-100 dark:bg-zinc-800 rounded-xl transition hover:bg-purple-100 dark:hover:bg-purple-900 cursor-pointer">
+    <div>
+      <div class="text-zinc-800 dark:text-white font-medium">Es Teh Manis</div>
+      <div class="text-sm text-zinc-500 dark:text-zinc-400">Outlet: Angkringan Firman</div>
+    </div>
+    <div class="text-purple-700 font-semibold text-sm">Rp 5.000</div>
+  </div>
+
+  <!-- Result item -->
+  <div class="flex items-center justify-between p-3 bg-zinc-100 dark:bg-zinc-800 rounded-xl transition hover:bg-purple-100 dark:hover:bg-purple-900 cursor-pointer">
+    <div>
+      <div class="text-zinc-800 dark:text-white font-medium">Mie Rebus Telur</div>
+      <div class="text-sm text-zinc-500 dark:text-zinc-400">Outlet: Angkringan Firman</div>
+    </div>
+    <div class="text-purple-700 font-semibold text-sm">Rp 12.000</div>
+  </div>
+</div>
+      </div>
+    </div>
+    <!-- list outlet -->
+    <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-[50px] px-4 container mx-auto">
+
+
+      <!-- Card  -->
+      <div class="bg-white dark:bg-zinc-800/70 rounded-xl shadow-sm overflow-hidden transition-colors duration-300">
+        <img src="assets/img/sample.png" alt="Sample" class="w-full h-40 object-cover">
+        <div class="p-5">
+          <h3 class="text-lg font-semibold text-purple-700 dark:text-white font-['Lexend']">Angkringan Firman</h3>
+          <p class="text-sm text-zinc-600 dark:text-zinc-300 font-['Lexend'] mt-2 mb-4">
+            menjual jajanan angkringan seperti sate-satean, nasi kucing, dll.
+          </p>
+          <hr>
+          <p class="mt-2 font-semibold font-['Lexend'] text-zinc-600 dark:text-zinc-300">
+            Open : 05.00 AM - 10.00 PM
+          </p>
+        </div>
+      </div>
+      <!-- Card  -->
+      <div class="bg-white dark:bg-zinc-800/70 rounded-xl shadow-sm overflow-hidden transition-colors duration-300">
+        <img src="assets/img/sample.png" alt="Sample" class="w-full h-40 object-cover">
+        <div class="p-5">
+          <h3 class="text-lg font-semibold text-purple-700 dark:text-white font-['Lexend']">Angkringan Firman</h3>
+          <p class="text-sm text-zinc-600 dark:text-zinc-300 font-['Lexend'] mt-2 mb-4">
+            menjual jajanan angkringan seperti sate-satean, nasi kucing, dll.
+          </p>
+          <hr>
+          <p class="mt-2 font-semibold font-['Lexend'] text-zinc-600 dark:text-zinc-300">
+            Open : 05.00 AM - 10.00 PM
+          </p>
+        </div>
+      </div>
+      <!-- Card  -->
+      <div class="bg-white dark:bg-zinc-800/70 rounded-xl shadow-sm overflow-hidden transition-colors duration-300">
+        <img src="assets/img/sample.png" alt="Sample" class="w-full h-40 object-cover">
+        <div class="p-5">
+          <h3 class="text-lg font-semibold text-purple-700 dark:text-white font-['Lexend']">Angkringan Firman</h3>
+          <p class="text-sm text-zinc-600 dark:text-zinc-300 font-['Lexend'] mt-2 mb-4">
+            menjual jajanan angkringan seperti sate-satean, nasi kucing, dll.
+          </p>
+          <hr>
+          <p class="mt-2 font-semibold font-['Lexend'] text-zinc-600 dark:text-zinc-300">
+            Open : 05.00 AM - 10.00 PM
+          </p>
+        </div>
+      </div>
+      <!-- Card  -->
+      <div class="bg-white dark:bg-zinc-800/70 rounded-xl shadow-sm overflow-hidden transition-colors duration-300">
+        <img src="assets/img/sample.png" alt="Sample" class="w-full h-40 object-cover">
+        <div class="p-5">
+          <h3 class="text-lg font-semibold text-purple-700 dark:text-white font-['Lexend']">Angkringan Firman</h3>
+          <p class="text-sm text-zinc-600 dark:text-zinc-300 font-['Lexend'] mt-2 mb-4">
+            menjual jajanan angkringan seperti sate-satean, nasi kucing, dll.
+          </p>
+          <hr>
+          <p class="mt-2 font-semibold font-['Lexend'] text-zinc-600 dark:text-zinc-300">
+            Open : 05.00 AM - 10.00 PM
+          </p>
+        </div>
+      </div>
+      <!-- Card  -->
+      <div class="bg-white dark:bg-zinc-800/70 rounded-xl shadow-sm overflow-hidden transition-colors duration-300">
+        <img src="assets/img/sample.png" alt="Sample" class="w-full h-40 object-cover">
+        <div class="p-5">
+          <h3 class="text-lg font-semibold text-purple-700 dark:text-white font-['Lexend']">Angkringan Firman</h3>
+          <p class="text-sm text-zinc-600 dark:text-zinc-300 font-['Lexend'] mt-2 mb-4">
+            menjual jajanan angkringan seperti sate-satean, nasi kucing, dll.
+          </p>
+          <hr>
+          <p class="mt-2 font-semibold font-['Lexend'] text-zinc-600 dark:text-zinc-300">
+            Open : 05.00 AM - 10.00 PM
+          </p>
+        </div>
+      </div>
+      <!-- Card  -->
+      <div class="bg-white dark:bg-zinc-800/70 rounded-xl shadow-sm overflow-hidden transition-colors duration-300">
+        <img src="assets/img/sample.png" alt="Sample" class="w-full h-40 object-cover">
+        <div class="p-5">
+          <h3 class="text-lg font-semibold text-purple-700 dark:text-white font-['Lexend']">Angkringan Firman</h3>
+          <p class="text-sm text-zinc-600 dark:text-zinc-300 font-['Lexend'] mt-2 mb-4">
+            menjual jajanan angkringan seperti sate-satean, nasi kucing, dll.
+          </p>
+          <hr>
+          <p class="mt-2 font-semibold font-['Lexend'] text-zinc-600 dark:text-zinc-300">
+            Open : 05.00 AM - 10.00 PM
+          </p>
+        </div>
+      </div>
+    </section>
+    <!-- pagination -->
+    <div class="flex justify-center mt-10">
+      <nav
+        class="inline-flex items-center rounded-xl shadow-sm bg-white dark:bg-zinc-800 px-2 py-1 space-x-1 transition-colors duration-300">
+        <!-- Previous Button -->
+        <a href="#"
+          class="px-3 py-2 text-sm font-medium text-zinc-700 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-700 rounded-md transition">
+          Previous
+        </a>
+
+        <!-- Page Numbers -->
+        <a href="#"
+          class="px-3 py-2 text-sm font-medium text-white bg-purple-600 rounded-md hover:bg-purple-700 transition">
+          1
+        </a>
+        <a href="#"
+          class="px-3 py-2 text-sm font-medium text-zinc-700 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-700 rounded-md transition">
+          2
+        </a>
+        <a href="#"
+          class="px-3 py-2 text-sm font-medium text-zinc-700 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-700 rounded-md transition">
+          3
+        </a>
+        <a href="#"
+          class="px-3 py-2 text-sm font-medium text-zinc-700 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-700 rounded-md transition">
+          ...
+        </a>
+        <a href="#"
+          class="px-3 py-2 text-sm font-medium text-zinc-700 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-700 rounded-md transition">
+          100
+        </a>
+        <!-- Next Button -->
+        <a href="#"
+          class="px-3 py-2 text-sm font-medium text-zinc-700 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-700 rounded-md transition">
+          Next
+        </a>
+      </nav>
+    </div>
+    <!-- hero -->
+    <section id="hero" class="mb-[100px] mt-[50px] relative w-full h-auto overflow-hidden rounded-[20px] 
+         bg-gradient-to-br from-fuchsia-100 to-purple-200 
+         dark:from-zinc-900/50 dark:to-zinc-600/50  dark:backdrop-blur-sm
+         px-6 py-12 md:py-20 lg:py-28 transition-colors duration-300">
+      <div class="container mx-auto relative z-10">
+        <!-- Heading -->
+        <h1
+          class="text-zinc-700 text-3xl sm:text-4xl lg:text-5xl font-extrabold font-['Lexend'] max-w-xl mb-6 dark:text-white transition-colors duration-300">
+          Make Cashier Tasks Easier with Bomi POS — Every Transaction Done in Seconds!
+        </h1>
+
+        <!-- Subheading -->
+        <p
+          class="text-zinc-600 text-base sm:text-lg lg:text-xl font-semibold font-['Lexend'] max-w-2xl mb-8 dark:text-zinc-400">
+          We’ve gathered the best features to support your cashier operations. Choose the perfect solution for your
+          business—quickly and easily!
+        </p>
+
+        <!-- Buttons -->
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="#"
+            class="w-full sm:w-56 h-14 bg-purple-700 rounded-[20px] flex items-center justify-center text-white text-lg sm:text-xl font-semibold font-['Lexend'] transition-all duration-300 hover:scale-105">
+            Get Started Free
+          </a>
+          <a href="#" class="w-full sm:w-64 h-14 bg-neutral-900 rounded-[20px] flex items-center justify-center 
+         text-white text-lg sm:text-xl font-semibold font-['Lexend'] 
+         transition-all duration-300 transform hover:scale-105 
+         dark:bg-white dark:text-neutral-900">
+            Download Now
+            <i class="bi bi-google-play ml-2"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Image -->
+      <img src="assets/img/hero-image.png" alt="Bomi POS illustration"
+        class="absolute right-0 bottom-0 h-full hidden lg:block  object-contain opacity-80 pointer-events-none" />
+
+      <!-- Spotlight gelap -->
+      <div id="spotlight"
+        class="pointer-events-none absolute w-96 h-96 rounded-full bg-black/25 blur-3xl opacity-0 z-10 transition-opacity duration-300 ease-out mix-blend-multiply">
+      </div>
+    </section>
+
+  </div>
+
+  <footer class="bg-[#1B0054] text-white px-8 py-12 dark:bg-black/50 transition-colors duration-300">
+    <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-5 gap-8 text-sm ">
+
+      <!-- Logo & Description -->
+      <div class="space-y-4 col-span-1">
+        <div class="flex items-center space-x-2">
+          <img src="assets/svg/logo.svg" alt="Logo" class="h-10">
+
+        </div>
+        <p class="text-gray-400 hover:text-white">
+          We’ve gathered the best features to support your cashier operations.
+          Choose the perfect solution for your business—quickly and easily!
+        </p>
+      </div>
+
+      <!-- Services -->
+      <div>
+        <h3 class="font-bold mb-2">Services</h3>
+        <ul class="space-y-1 ">
+          <li><a href="#" class="text-gray-400 hover:text-white">Pricing</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white">Bomi Product</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white">FAQ</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white">Help Docs</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white">Privacy Policy</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white">Terms and Conditions</a></li>
+        </ul>
+      </div>
+
+      <!-- Features -->
+      <div>
+        <h3 class="font-bold mb-2">Features</h3>
+        <ul class="space-y-1">
+          <li><a href="#" class="text-gray-400 hover:text-white">POS Application</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white">Dasboard Sales</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white">Manajemen Resto</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white">Ingredient Manajemen</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white">Financial Report</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white">Sales Report</a></li>
+        </ul>
+      </div>
+
+      <!-- Account -->
+      <div>
+        <h3 class="font-bold mb-2">Account</h3>
+        <ul class="space-y-1 ">
+          <li><a href="#" class="text-gray-400 hover:text-white">Sign In</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white">Sign Up</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white">Reset Password</a></li>
+        </ul>
+      </div>
+
+      <!-- Newsletter -->
+      <div>
+        <h3 class="font-bold mb-2">Stay in Touch</h3>
+        <p class="text-[#D1CDE6] mb-2">
+          subscribe now for exclusive insights and offers!
+        </p>
+        <div class="space-y-2">
+          <input type="email" placeholder="Email Address"
+            class="w-full px-4 py-2 rounded-md text-black-300 border border-white rounded-xl" />
+          <button
+            class="w-full py-4 bg-white/70 text-[#1B0054] font-semibold py-2 rounded-xl hover:bg-white transition duration-300">
+            Subscribe Now
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom copyright -->
+    <div class="mt-12 text-center text-xs text-[#D1CDE6]">
+      © 2025 Bomi POS . All Rights Reserved.
+    </div>
+  </footer>
+
+  <script>
+    // search
+    function toggleSearchModal() {
+      const modal = document.getElementById("searchModal");
+      modal.classList.toggle("hidden");
+      modal.classList.toggle("flex");
+    }
+    //darkmode
+    const toggleDark = document.getElementById('toggleDark');
+    const icon = document.getElementById('darkIcon');
+
+    toggleDark.addEventListener('click', function (e) {
+      e.preventDefault();
+      document.documentElement.classList.toggle('dark');
+
+      // Ganti icon
+      if (document.documentElement.classList.contains('dark')) {
+        icon.classList.remove('bi-brightness-high');
+        icon.classList.add('bi-moon');
+      } else {
+        icon.classList.remove('bi-moon');
+        icon.classList.add('bi-brightness-high');
+      }
+    });
+    // Toggle mobile menu visibility
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    hamburgerBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+    //spotlight
+    const hero = document.getElementById('hero');
+    const spotlight = document.getElementById('spotlight');
+
+    let mouseX = 0;
+    let mouseY = 0;
+    let animationFrameId;
+
+    function updateSpotlight() {
+      spotlight.style.left = `${mouseX}px`;
+      spotlight.style.top = `${mouseY}px`;
+      spotlight.style.opacity = '1';
+      animationFrameId = requestAnimationFrame(updateSpotlight);
+    }
+
+    hero.addEventListener('mousemove', (e) => {
+      const rect = hero.getBoundingClientRect();
+      mouseX = e.clientX - rect.left;
+      mouseY = e.clientY - rect.top;
+
+      if (!animationFrameId) {
+        updateSpotlight();
+      }
+    });
+
+    hero.addEventListener('mouseleave', () => {
+      spotlight.style.opacity = '0';
+      cancelAnimationFrame(animationFrameId);
+      animationFrameId = null;
+    });
+    //tab 
+    const tabMobile = document.getElementById('tab-mobile');
+    const tabWeb = document.getElementById('tab-web');
+    const deviceImage = document.getElementById('device-image');
+
+    tabMobile.addEventListener('click', () => {
+      deviceImage.src = 'assets/img/app-android.jpg';
+      tabMobile.classList.add('bg-fuchsia-300');
+      tabMobile.classList.add('dark:bg-neutral-500/50');
+      tabWeb.classList.remove('dark:bg-neutral-500/50');
+      tabWeb.classList.remove('bg-fuchsia-300');
+    });
+
+    tabWeb.addEventListener('click', () => {
+      deviceImage.src = 'assets/img/app-web.png';
+      tabWeb.classList.add('dark:bg-neutral-500/50');
+      tabMobile.classList.remove('dark:bg-neutral-500/50');
+      tabWeb.classList.add('bg-fuchsia-300');
+      tabMobile.classList.remove('bg-fuchsia-300');
+    });
+  </script>
+</body>
+
+</html>
