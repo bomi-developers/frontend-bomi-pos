@@ -256,21 +256,33 @@
 
     //darkmode
     const toggleDark = document.getElementById('toggleDark');
-    const icon = document.getElementById('darkIcon');
+  const icon = document.getElementById('darkIcon');
 
-    toggleDark.addEventListener('click', function (e) {
-      e.preventDefault();
-      document.documentElement.classList.toggle('dark');
+  // Cek dan terapkan mode saat halaman dimuat
+  if (localStorage.getItem('theme') === 'dark') {
+    document.documentElement.classList.add('dark');
+    icon.classList.remove('bi-brightness-high');
+    icon.classList.add('bi-moon');
+  } else {
+    document.documentElement.classList.remove('dark');
+    icon.classList.remove('bi-moon');
+    icon.classList.add('bi-brightness-high');
+  }
 
-      // Ganti icon
-      if (document.documentElement.classList.contains('dark')) {
-        icon.classList.remove('bi-brightness-high');
-        icon.classList.add('bi-moon');
-      } else {
-        icon.classList.remove('bi-moon');
-        icon.classList.add('bi-brightness-high');
-      }
-    });
+  toggleDark.addEventListener('click', function (e) {
+    e.preventDefault();
+    document.documentElement.classList.toggle('dark');
+
+    if (document.documentElement.classList.contains('dark')) {
+      localStorage.setItem('theme', 'dark');
+      icon.classList.remove('bi-brightness-high');
+      icon.classList.add('bi-moon');
+    } else {
+      localStorage.setItem('theme', 'light');
+      icon.classList.remove('bi-moon');
+      icon.classList.add('bi-brightness-high');
+    }
+  });
     // Toggle mobile menu visibility
     const hamburgerBtn = document.getElementById('hamburgerBtn');
     const mobileMenu = document.getElementById('mobileMenu');
